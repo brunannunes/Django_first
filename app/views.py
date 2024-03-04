@@ -54,4 +54,12 @@ class LivroView(APIView):
         
         serializer.save()
         return Response(status=200, data=serializer.data)
+    
+    def delete(self,request, id):
+        livro = Livros.objects.filter(id=id).first()
+        if not livro:
+            #se nenhum livro for encontrado ele retornara um erro 404
+            return Response(status=404, data={'mensagem': 'livro nao encontrado'})
+        livro.delete()
+        return Response(status=204,data={'mensagem': 'deletou cachorreira'})
        
